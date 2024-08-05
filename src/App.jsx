@@ -79,13 +79,21 @@ function App() {
             try {
                 const response = await axios.get('http://127.0.0.1:5000');
                 console.log(response.data);
-                setTableData(response.data);
+                const formattedData = response.data.map(item => ({
+                    id: item[0],
+                    state: item[1],
+                    date: item[2],
+                    suspected: item[3],
+                    tested: item[4],
+                    confirmed: item[5],
+                    deaths: item[6]
+                }));
+                setTableData(formattedData);
             } catch (err) {
                 console.error(err);
                 setError('Failed to fetch data');
             }
         };
-
         fetchData();
     }, []);
 
@@ -137,7 +145,7 @@ function App() {
                         <Cart label="DEATHS" value={stateData.deaths} />
                     </div>
                     <div className="table">
-                        <DataTable data={sampleData} />
+                        <DataTable data={tableData} />
                     </div>
                 </div>
             </div>

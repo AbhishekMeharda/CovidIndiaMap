@@ -33,8 +33,6 @@ const useStyles = makeStyles({
 const DataTable = ({ data }) => {
     const classes = useStyles();
 
-    console.log('DataTabel', data);
-
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table" stickyHeader>
@@ -49,7 +47,7 @@ const DataTable = ({ data }) => {
                 </TableHead>
                 <TableBody>
                     {data.map((row) => (
-                        <TableRow key={row.state}>
+                        <TableRow key={row.id}>
                             <TableCell component="th" scope="row" className={classes.bodyCell}>
                                 {row.state}
                             </TableCell>
