@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function App() {
     const [selectedState, setSelectedState] = useState("INDIA");
-    const [stateData, setStateData] = useState({suspected: "0", tested: "0", confirmed: "0", deaths: "0"});
+    const [stateData, setStateData] = useState({suspected: "45,393", tested: "45,035", confirmed: "45,034", deaths: "5370"});
     const [error, setError] = useState(null);
     const [tableData, setTableData] = useState([]);
 
@@ -39,9 +39,10 @@ function App() {
     const handleStateClick = async (event) => {
         try {
             const state = event.target.getAttribute('name');
+            const date = document.querySelector('input[type="date"]').value;
             console.log(state);
             setSelectedState(state);
-            const response = await axios.get(`http://127.0.0.1:5000/api/data?state=${state}`);
+            const response = await axios.get(`http://127.0.0.1:5000/api/data?state=${state}&date=${date}`);
             console.log(response.data);
             setStateData(response.data);
             setError(null);
@@ -62,7 +63,7 @@ function App() {
                 <div className="date">
                     <span>
                         <b>Latest Recorded Date:</b>
-                        <input type="date" onChange={e => setDate(e.target.value)}/>
+                        <input type="date"/>
                     </span>
                     <select name="date" id="date">
                         <option value="volvo">Download</option>
